@@ -5,7 +5,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import java.util.ArrayList;
 import java.util.Date;
 
-class EmailTemplate {
+class Emailformate {
     Date date;
     String sender;
     String message;
@@ -13,7 +13,7 @@ class EmailTemplate {
     //    public EmailTemplate(){
 //
 //    }
-    public EmailTemplate(Date date, String sender, String message) {
+    public Emailformate(Date date, String sender, String message) {
         this.date = date;
         this.sender = sender;
         this.message = message;
@@ -26,8 +26,8 @@ public class Gmail extends Email {
     //Inbox: Stores mails. Each mail has date (Date), sender (String), message (String). It is guaranteed that message is distinct for all mails.
     //Trash: Stores mails. Each mail has date (Date), sender (String), message (String)
 
-    ArrayList<EmailTemplate> Inbox;
-    ArrayList<EmailTemplate> Trash;
+    ArrayList<Emailformate> Inbox;
+    ArrayList<Emailformate> Trash;
 
     public Gmail(String emailId, int inboxCapacity) {
         super(emailId);
@@ -47,21 +47,21 @@ public class Gmail extends Email {
 
         if(Inbox.size() == inboxCapacity){
             //Get the firstEmailTemplate
-            EmailTemplate emailTemplate = Inbox.get(0);
+            Emailformate emailTemplate = Inbox.get(0);
             Inbox.remove(0); //remove it from Inbox
             Trash.add(emailTemplate); //add to trash
         }
         //add latest email
-        EmailTemplate emailTemplate = new EmailTemplate(date, sender , message);
+        Emailformate emailTemplate = new Emailformate(date, sender , message);
         Inbox.add(emailTemplate);
 
     }
 
     public void deleteMail(String message){
         //We have an arrayList of emailTemplate, Find its index : matching message with emailTemplate message
-        EmailTemplate emailTemplate = null;
+        Emailformate emailTemplate = null;
         for(int i=0; i<Inbox.size(); i++){
-            EmailTemplate emailTemplate1 = Inbox.get(i);
+            Emailformate emailTemplate1 = Inbox.get(i);
             if(emailTemplate1.message.equals(message)){
                 emailTemplate = emailTemplate1;
                 break;
@@ -81,7 +81,7 @@ public class Gmail extends Email {
         }
 
 
-        EmailTemplate emailTemplate = Inbox.get(Inbox.size() - 1);
+        Emailformate emailTemplate = Inbox.get(Inbox.size() - 1);
         return emailTemplate.message;
     }
 
@@ -93,7 +93,7 @@ public class Gmail extends Email {
             return null;
         }
 
-        EmailTemplate emailTemplate = Inbox.get(0);
+        Emailformate emailTemplate = Inbox.get(0);
         return emailTemplate.message;
     }
 
@@ -102,7 +102,7 @@ public class Gmail extends Email {
         //It is guaranteed that start date <= end date
         int count = 0;
         for(int i=0; i<Inbox.size(); i++){
-            EmailTemplate emailTemplate = Inbox.get(i);
+            Emailformate emailTemplate = Inbox.get(i);
             //Compare the Date
             if((emailTemplate.date.compareTo(start) >= 0) && (emailTemplate.date.compareTo(end) <= 0)){
                 count++;
